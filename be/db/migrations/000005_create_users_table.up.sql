@@ -1,0 +1,10 @@
+CREATE TABLE IF NOT EXISTS users (
+    id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    created_at TIMESTAMPTZ DEFAULT NOW(),
+    fullname VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    national_id VARCHAR(255) NOT NULL,
+    nationality VARCHAR(255) NOT NULL,
+    country_flag VARCHAR(255) NOT NULL
+);
