@@ -1,6 +1,6 @@
 "use client";
 
-import { handleFetchResponse, SERVER_BASE_URL } from "@/lib/helper";
+import { handleFetchResponse, SERVER_BASE_URL_FOR_CLIENT } from "@/lib/helper";
 import { Error } from "@/types";
 import { Error as ResponseError } from "@/types";
 import { updateNationalitySchemaType } from "@/lib/schemas/update-nationality";
@@ -8,7 +8,7 @@ import { updateNationalitySchemaType } from "@/lib/schemas/update-nationality";
 export const UpdateCurrentUserNationality = async (
   formData: updateNationalitySchemaType
 ): Promise<string | undefined> => {
-  const BASE_URL = `${SERVER_BASE_URL}/auth/update-nationality`;
+  const BASE_URL = `${SERVER_BASE_URL_FOR_CLIENT}/auth/update-nationality`;
 
   try {
     const response = await fetch(BASE_URL, {
@@ -27,7 +27,7 @@ export const UpdateCurrentUserNationality = async (
 };
 
 export const signOutUser = async (): Promise<String | undefined> => {
-  const BASE_URL = `${SERVER_BASE_URL}/auth/sign-out`;
+  const BASE_URL = `${SERVER_BASE_URL_FOR_CLIENT}/auth/sign-out`;
 
   try {
     const response = await fetch(BASE_URL, {

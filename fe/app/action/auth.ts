@@ -1,6 +1,6 @@
 "use client"
 
-import { SERVER_BASE_URL, handleFetchResponse } from "@/lib/helper";
+import { SERVER_BASE_URL_FOR_CLIENT, handleFetchResponse } from "@/lib/helper";
 import { loginSchemaType } from "@/lib/schemas/login";
 import { signUpSchemaType } from "@/lib/schemas/sign-up";
 import { CurrentUser, Error as ResponseError } from "@/types";
@@ -9,7 +9,7 @@ import { CurrentUser, Error as ResponseError } from "@/types";
 export const signIn = async (
   formData: loginSchemaType
 ): Promise<string | undefined> => {
-  const BASE_URL = `${SERVER_BASE_URL}/auth/sign-in`;
+  const BASE_URL = `${SERVER_BASE_URL_FOR_CLIENT}/auth/sign-in`;
 
   try {
     const response = await fetch(BASE_URL, {
@@ -32,7 +32,7 @@ export const signIn = async (
 export const signUp = async (
   formData: signUpSchemaType
 ): Promise<string | undefined> => {
-  const BASE_URL = `${SERVER_BASE_URL}/auth/sign-up`;
+  const BASE_URL = `${SERVER_BASE_URL_FOR_CLIENT}/auth/sign-up`;
 
   try {
     const response = await fetch(BASE_URL, {

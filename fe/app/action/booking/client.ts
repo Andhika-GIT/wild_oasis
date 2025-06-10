@@ -1,6 +1,6 @@
 "use client";
 
-import { SERVER_BASE_URL, handleFetchResponse } from "@/lib/helper";
+import { SERVER_BASE_URL_FOR_CLIENT, handleFetchResponse } from "@/lib/helper";
 import { CreateBooking, Error as ResponseError } from "@/types";
 import { notFound } from "next/navigation";
 import { updateReservationSchemaType } from "@/lib/schemas/update-reservation";
@@ -10,7 +10,7 @@ export const updateCurrentUserBooking = async (
   formData: updateReservationSchemaType
 ): Promise<String | undefined> => {
   try {
-    const response = await fetch(`${SERVER_BASE_URL}/booking/me/${id}`, {
+    const response = await fetch(`${SERVER_BASE_URL_FOR_CLIENT}/booking/me/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -34,7 +34,7 @@ export const createBooking = async (
   bookingData: CreateBooking
 ): Promise<String | undefined> => {
   try {
-    const response = await fetch(`${SERVER_BASE_URL}/booking/create`, {
+    const response = await fetch(`${SERVER_BASE_URL_FOR_CLIENT}/booking/create`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
