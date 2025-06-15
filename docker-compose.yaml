@@ -9,6 +9,8 @@ services:
       - POSTGRES_DB=wild_oasis
     ports:
       - "5439:5432"
+    volumes:
+      - pgdata-dev:/var/lib/postgresql/data
   be: 
     build: 
       context: ./be
@@ -33,4 +35,8 @@ services:
     volumes:
       - ./fe:/app
       - /app/node_modules
+
+
+volumes:
+  pgdata-dev:
   
