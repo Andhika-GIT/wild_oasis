@@ -5,6 +5,9 @@ export const metadata = {
   title: "Reservations",
 };
 
+export const dynamic = 'force-dynamic';
+
+
 export default async function Page() {
   // CHANGE
   const bookings = await getCurrentUserBookings()
