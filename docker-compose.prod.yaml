@@ -1,0 +1,40 @@
+version: "3.8"
+services: 
+  postgres:
+    image: postgres:12
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=wild_oasis
+    ports:
+      - "5440:5432"
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+  be: 
+    build: 
+      context: ./be
+      dockerfile: dockerfile.prod
+    ports:
+      - "3001:3000"
+    env_file:
+      - ./be/.env 
+    depends_on:
+      - postgres
+
+  fe:
+    build:
+      context: ./fe
+      dockerfile: dockerfile.prod
+    ports:
+    - "4001:4000"
+    env_file:
+      - ./fe/.env
+
+volumes:
+  pgdata:

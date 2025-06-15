@@ -1,0 +1,36 @@
+FROM golang:1.24-alpine AS build
+
+WORKDIR /app
+
+RUN apk add --no-cache postgresql-client
+
+ENV IS_PRODUCTION=true
+
+COPY go.mod go.sum ./
+
+RUN go mod download
+
+COPY . .
+
+RUN CGO_ENABLED=0 GOOS=linux go build -ldflags="-s -w" -o myapp ./cmd/app/main.go
+RUN go build -o seedcmd ./cmd/seed/main.go
+
+RUN chmod +x /app/entrypoint-prod.sh
+
+
+# ------------------------------------------------------------
+
+FROM scratch
+
+WORKDIR /app
+
+COPY --from=build /app/myapp ./
+COPY --from=build /app/entrypoint-prod.sh ./
+COPY --from=build /app/seedcmd ./seedcmd
+COPY --from=build /app/entrypoint-prod.sh ./entrypoint-prod.sh
+
+USER 65532:65532
+
+ENTRYPOINT [ "/app/entrypoint-prod.sh" ]
+
+
